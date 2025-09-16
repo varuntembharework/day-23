@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Day 23 — Multimedia (audio, video, iframe)</title>
+        <style>
+            /* Simple responsive container for iframes & videos */
+            .media-wrap {
+                max-width: 900px;
+                margin: 1.25rem auto;
+                padding: 0 1rem;
+            }
+
+            .responsive-iframe {
+                position: relative;
+                width: 100%;
+                padding-bottom: 56.25%; /* 16:9 */
+                height: 0;
+                overflow: hidden;
+                border-radius: 8px;
+                box-sizing: 0 6px 18px rgba(0,0,0,0.08);
+            }
+            .responsive-iframe iframe,
+            .responsive-iframe video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+
+            .players {
+                display: grid;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .note {
+                font-size: .95rem;
+                color: #333;
+                margin-top: .25rem;
+            }
+
+            body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height: 1.5; padding-bottom: 3rem; }
+            header { text-align:center; margin:2rem 0; }
+            h1 { font-size: 1.5rem; margin-bottom: .25rem; }
+            small { color: #666; }
+            footer { text-align:center; margin-top: 2rem; color:#666; font-size: .9rem; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Day 23 = Multimedia: audio, video, iframe</h1>
+            <small>Add YouTube (iframe), native &lt;video&gt;, and &lt;audio&gt; players</small>
+        </header>
+
+        <main class="media-wrap">
+            <!-- 1) YouTube embed (privacy-enhanced domain) -->
+             <section>
+                <h2>Embed YouTube (iframe)</h2>
+                <div class="responsive-iframe" aria-hidden="false">
+                    <iframe
+                        src="https://www.youtube.com/embed/dkbu2RVP190?si=W0nVqkwRpWzde5Gx"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="note">Tip: use the `-nocookie` domain for privacy-friendly embeds; swap `VIDEO_ID` with the real id.</p>
+             </section>
+
+            <!-- 2) Native video element -->
+             <section class="players">
+                <div>
+                    <h2>Native &lt;video&gt; (MP4)</h2>
+                    <div class="responsive-iframe">
+                        <video controls preload="metadata" poster="videos/poster.jpg">
+                        <source src="videos/sample.mp4" type="video/mp4">
+                        Your browser does not support the video element.
+                        </video>
+                    </div>
+                    <p class="note">User 'poster' for a preview image and provide multiple source types for compatibility.</p>
+                </div>
+
+                <!-- 3) Audio Players -->
+                 <div>
+                    <h2>Audio Players</h2>
+
+                    <!-- Local audio file -->
+                     <div>
+                        <p><strong>Local audio</strong></p>
+                        <audio controls preload="metadata">
+                            <source src="audio/song.mp3" type="audio/mpeg">
+                            <source src="audio/song.ogg" type="audio/ogg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <p class="note">Provide MP3 + OGG for broader support.</p>
+                     </div>
+
+                     <!-- Remote/streamed audio -->
+                     <div style="margin-top:075rem;">
+                        <p><strong>Streamed audio (URL)</strong></p>
+                        <audio controls preload="none">
+                            <source src="https://illpeoplemusic-v2-beats-dev.s3.ap-south-1.amazonaws.com/user-634da1b8199f811cbb80fb6a/beat-170651/preview.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXRTHGNADOMBVQU42%2F20250916%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20250916T072146Z&X-Amz-Expires=3600&X-Amz-Signature=f1938d6b972f389affa9146205dabb571fdfe43aae132e9125731cc5226c9f9c&X-Amz-SignedHeaders=host" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <p class="note">Use 'preload="none"' for external streams to avoid auto-download</p>
+                     </div>
+                 </div>
+             </section>
+
+             <!-- 4) Accessibility & captions -->
+              <section style="margin-top:1.25rem;">
+                <h2>Captions & accessibility</h2>
+                <p class="note">
+                    For accessibility: add `<track kind="captions" srclang="en" label="English" src="captions/en.vtt">`
+                    inside the `<video>` element. Provide descriptive text, keyboard focus, and clear titles.
+                </p>
+              </section>
+        </main>
+
+        <footer>
+            <small>Practice: replace the placeholders with real file paths and video IDs.</small>
+        </footer>
+    </body>
+</html>
